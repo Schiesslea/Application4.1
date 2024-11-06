@@ -21,6 +21,7 @@ switch ($action) {
     case "reinitmdp":
         $Vue->addToCorps(new Vue_Mail_ReinitMdp());
         break;
+
     case "Se connecter":
         if (isset($_REQUEST["compte"]) and isset($_REQUEST["password"])) {
             $utilisateur = Modele_Utilisateur::Utilisateur_Select_ParLogin($_REQUEST["compte"]);

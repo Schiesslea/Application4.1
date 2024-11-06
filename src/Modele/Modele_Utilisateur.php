@@ -129,18 +129,23 @@ class Modele_Utilisateur
         return $requetePreparee->execute();
     }
 
-    static function Utilisateur_AccepterRGPD($idUtilisateur, $aAccepteRGPD, $dateAcceptionRGPD, $ip)
+    static function Utilisateur_AccepterRGPD($idUtilisateur, $aAccepteRGPD, \DateTime $dateAcceptionRGPD, $ip)
     {
         $connexionPDO = Singleton_ConnexionPDO::getInstance();
+        $formattedDate = $dateAcceptionRGPD->format('Y-m-d H:i:s');
         $requetePreparee = $connexionPDO->prepare(
             'UPDATE `utilisateur` 
-             SET aAccepteRGPD = :aAccepteRGPD, dateAcceptionRGPD = :dateAcceptionRGPD, IP = :ip
-             WHERE idUtilisateur = :idUtilisateur');
-        $requetePreparee->bindParam('aAccepteRGPD', $aAccepteRGPD);
-        $requetePreparee->bindParam('dateAcceptionRGPD', $dateAcceptionRGPD);
-        $requetePreparee->bindParam('ip', $ip);
-        $requetePreparee->bindParam('idUtilisateur', $idUtilisateur);
-        return $requetePreparee->execute();
+         SET aAccepteRGPD = :aAccepteRGPD, dateAcceptionRGPD = :dateAcceptionRGPD, IP = :ip
+         WHERE idUtilisateur = :idUtilisateur'
+        );
+        // Corrected bindParam calls with parameters including ":"
+        $requetePreparee->bindParam(':aAccepteRGPD', $aAccepteRGPD);
+        $requetePreparee->bindParam(':dateAcceptionRGPD', $formattedDate);
+        $requetePreparee->bindParam(':ip', $ip);
+        $requetePreparee->bindParam(':idUtilisateur', $idUtilisateur);
+
+        $reponse = $requetePreparee->execute(); // $reponse is a boolean indicating the status of the query
+        return $reponse;
     }
 
 

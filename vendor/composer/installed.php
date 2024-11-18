@@ -3,7 +3,7 @@
         'name' => 'vendor_name/cafe',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'e9fb4ff14047fa23ea2086df75e18cffe4f127f0',
+        'reference' => '3b9110062038e4c46b9b5dea0839775d4453246f',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -45,6 +45,15 @@
             'install_path' => __DIR__ . '/../phar-io/version',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'phpmailer/phpmailer' => array(
+            'pretty_version' => 'v6.9.2',
+            'version' => '6.9.2.0',
+            'reference' => 'a7b17b42fa4887c92146243f3d2f4ccb962af17c',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpmailer/phpmailer',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'phpunit/php-code-coverage' => array(
             'pretty_version' => '11.0.7',
@@ -265,7 +274,7 @@
         'vendor_name/cafe' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'e9fb4ff14047fa23ea2086df75e18cffe4f127f0',
+            'reference' => '3b9110062038e4c46b9b5dea0839775d4453246f',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

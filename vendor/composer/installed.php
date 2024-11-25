@@ -3,7 +3,7 @@
         'name' => 'vendor_name/cafe',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '3b9110062038e4c46b9b5dea0839775d4453246f',
+        'reference' => '4b1cc69e211f458af8de692bcd1ae302bcccf566',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'myclabs/deep-copy' => array(
-            'pretty_version' => '1.12.0',
-            'version' => '1.12.0.0',
-            'reference' => '3a6b9a42cd8f8771bd4295d13e1423fa7f3d942c',
+            'pretty_version' => '1.12.1',
+            'version' => '1.12.1.0',
+            'reference' => '123267b2c49fbf30d78a7b2d333f6be754b94845',
             'type' => 'library',
             'install_path' => __DIR__ . '/../myclabs/deep-copy',
             'aliases' => array(),
@@ -254,9 +254,9 @@
             'dev_requirement' => false,
         ),
         'tecnickcom/tcpdf' => array(
-            'pretty_version' => '6.7.6',
-            'version' => '6.7.6.0',
-            'reference' => '4cf1ab192e87e6916d20f93077b2bdfa96a2f848',
+            'pretty_version' => '6.7.7',
+            'version' => '6.7.7.0',
+            'reference' => 'cfbc0028cc23f057f2baf9e73bdc238153c22086',
             'type' => 'library',
             'install_path' => __DIR__ . '/../tecnickcom/tcpdf',
             'aliases' => array(),
@@ -274,7 +274,7 @@
         'vendor_name/cafe' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '3b9110062038e4c46b9b5dea0839775d4453246f',
+            'reference' => '4b1cc69e211f458af8de692bcd1ae302bcccf566',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

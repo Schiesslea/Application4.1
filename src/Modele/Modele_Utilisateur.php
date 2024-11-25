@@ -34,8 +34,19 @@ class Modele_Utilisateur
         $connexionPDO = Singleton_ConnexionPDO::getInstance();
         $requetePreparee = $connexionPDO->prepare('select * from `utilisateur` where idUtilisateur = :paramId');
         $requetePreparee->bindParam('paramId', $idUtilisateur);
-        $requetePreparee->execute();
-        return $requetePreparee->fetch(PDO::FETCH_ASSOC);
+        $reponse = $requetePreparee->execute(); //$reponse boolean sur l'état de la requête
+        $etudiant = $requetePreparee->fetch(PDO::FETCH_ASSOC);
+        return $etudiant;
+    }
+
+    static function Utilisateur_SelectMail_ParId($idUtilisateur)
+    {
+        $connexionPDO = Singleton_ConnexionPDO::getInstance();
+        $requetePreparee = $connexionPDO->prepare('select login from `utilisateur` where idUtilisateur = :paramId');
+        $requetePreparee->bindParam('paramId', $idUtilisateur);
+        $reponse = $requetePreparee->execute(); //$reponse boolean sur l'état de la requête
+        $etudiant = $requetePreparee->fetch(PDO::FETCH_ASSOC);
+        return $etudiant;
     }
 
     static function Utilisateur_Select_ParLogin($login)
@@ -43,9 +54,11 @@ class Modele_Utilisateur
         $connexionPDO = Singleton_ConnexionPDO::getInstance();
         $requetePreparee = $connexionPDO->prepare('select * from `utilisateur` where login = :paramLogin');
         $requetePreparee->bindParam('paramLogin', $login);
-        $requetePreparee->execute();
-        return $requetePreparee->fetch(PDO::FETCH_ASSOC);
+        $reponse = $requetePreparee->execute(); //$reponse boolean sur l'état de la requête
+        $utilisateur = $requetePreparee->fetch(PDO::FETCH_ASSOC);
+        return $utilisateur;
     }
+
 
     static function Utilisateur_Creer($login, $motDePasse, $codeCategorie)
     {
@@ -148,5 +161,16 @@ class Modele_Utilisateur
         return $reponse;
     }
 
+    static function Utilisateur_Select_RGPD($idUtilisateur)
+    {
+        $connexionPDO = Singleton_ConnexionPDO::getInstance();
+        $requetePreparee = $connexionPDO->prepare('select aAccepteRGPD from `utilisateur` where idUtilisateur = :paramId');
+        $requetePreparee->bindParam('paramId', $idUtilisateur);
+        $reponse = $requetePreparee->execute(); //$reponse boolean sur l'état de la requête
+        $etudiant = $requetePreparee->fetch(PDO::FETCH_ASSOC);
+        if ($etudiant!=null)
+            return $etudiant['aAccepteRGPD'];
+        return null;
+    }
 
 }

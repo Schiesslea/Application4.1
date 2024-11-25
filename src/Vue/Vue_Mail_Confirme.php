@@ -10,9 +10,12 @@ class Vue_Mail_Confirme extends Vue_Composant
 
     function donneTexte(): string
     {
-        $str= "<H1>Un mail de réinitialisation de votre mot de passe vous a été adressé !</H1> ";
+        $str= "<H1>Un mail de réinitialisation de votre mot de passe vous a été adressé !</H1> 
+
+               <a href=''>Retour à la connexion</a>";
 
         return $str;
+
     }
 
 }

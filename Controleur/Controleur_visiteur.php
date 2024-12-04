@@ -39,6 +39,13 @@ switch ($action) {
         }
         break;
 
+    case 'token':
+        $token = $_GET['token'] ?? null;
+        if ($token) {
+            // Vérifier si le jeton est valide
+            $Vue->addToCorps(new \App\Vue\Vue_Mail_ChoisirNouveauMdp($token));
+            break;
+        }
     default:
         $Vue->addToCorps(new Vue_Connexion_Formulaire_client());
         break;

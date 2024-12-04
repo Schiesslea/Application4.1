@@ -53,23 +53,12 @@ switch ($typeConnexion) {
                 include "Controleur/Controleur_AccepterRGPD.php";
                 break;
             case 'token':
+                $token = $_GET['token'] ?? null;
                 if ($token) {
                     // Vérifier si le jeton est valide
-                    try {
-                        $jeton = Modele_Jeton::search($token);
-                        if ($jeton && strtotime($jeton['dateFin']) > time()) {
-                            // Afficher le formulaire pour changement de mot de passe
-                            $Vue = new \App\Vue\Vue_Utilisateur_Changement_MDP($token);
-                        } else {
-                            echo "Jeton invalide ou expiré.";
-                        }
-                    } catch (Exception $e) {
-                        echo "Erreur lors de la vérification du jeton : " . $e->getMessage();
-                    }
-                } else {
-                    echo "Jeton manquant dans la requête.";
+                    $Vue->addToCorps(new \App\Vue\Vue_Mail_ChoisirNouveauMdp($token));
+                    break;
                 }
-                break;
             default:
                 include "Controleur/Controleur_visiteur.php";
         }

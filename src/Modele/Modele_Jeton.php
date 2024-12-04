@@ -7,21 +7,20 @@ use PDO;
 
 class Modele_Jeton
 {
-    public static function Jeton_Generer($idUtilisateur)
+
+    public static function insert($idUtilisateur)
     {
-        $octetsAleatoires = random_bytes(256);
+        $octetsAleatoires = openssl_random_pseudo_bytes (256) ;
         $jeton = sodium_bin2base64($octetsAleatoires, SODIUM_BASE64_VARIANT_ORIGINAL);
         $expiration = date('Y-m-d H:i:s', strtotime('+1 hour'));
 
         $connexionPDO = Singleton_ConnexionPDO::getInstance();
         $requetePreparee = $connexionPDO->prepare('
-            INSERT INTO token (valeur, codeAction, idUtilisateur, dateFin) 
-            VALUES (:valeur, :codeAction, :idUtilisateur, :dateFin)
-        ');
+        INSERT INTO token (valeur, idUtilisateur, dateFin) 
+        VALUES (:valeur, :idUtilisateur, :dateFin)
+    ');
 
-        // Utilisation de bindValue plutôt que bindParam
         $requetePreparee->bindValue(':valeur', $jeton);
-        $requetePreparee->bindValue(':codeAction', 1);
         $requetePreparee->bindValue(':idUtilisateur', $idUtilisateur);
         $requetePreparee->bindValue(':dateFin', $expiration);
 
@@ -29,46 +28,30 @@ class Modele_Jeton
             return $jeton;
         }
 
-        throw new \Exception("Echec de la generation du jeton.");
+        throw new \Exception("Échec de l'insertion du jeton.");
     }
 
-    public static function Jeton_Recuperer($valeurJeton)
+    public static function update($idJeton)
     {
         $connexionPDO = Singleton_ConnexionPDO::getInstance();
-        $requetePreparee = $connexionPDO->prepare('
-            SELECT * FROM token 
-            WHERE valeur = :valeurJeton AND dateFin > NOW()'
-        );
-        $requetePreparee->bindParam(':valeurJeton', $valeurJeton);
-        $requetePreparee->execute();
+        $stmt = $connexionPDO->prepare('UPDATE token SET dateFin = NOW() WHERE id = :id');
+        $stmt->bindValue(':id', $idJeton);
 
-        return $requetePreparee->fetch(PDO::FETCH_ASSOC);
-    }
-
-    public static function Jeton_Invalidate($idJeton)
-    {
-        $connexionPDO = Singleton_ConnexionPDO::getInstance();
-        $requetePreparee = $connexionPDO->prepare('
-            UPDATE token 
-            SET dateFin = NOW() 
-            WHERE id = :idJeton'
-        );
-        $requetePreparee->bindParam(':idJeton', $idJeton);
-
-        if (!$requetePreparee->execute()) {
-            throw new \Exception("Echec de l'invalidation du jeton.");
+        if (!$stmt->execute()) {
+            throw new \Exception("Échec de la mise à jour du jeton.");
         }
     }
 
-    public static function Jeton_Delete($idJeton)
+    public static function search($valeur)
     {
         $connexionPDO = Singleton_ConnexionPDO::getInstance();
-        $requetePreparee = $connexionPDO->prepare('
-            DELETE FROM token 
-            WHERE id = :idJeton'
-        );
-        $requetePreparee->bindParam(':idJeton', $idJeton);
+        $stmt = $connexionPDO->prepare('SELECT * FROM token WHERE valeur = :valeur');
+        $stmt->bindValue(':valeur', $valeur);
 
-        return $requetePreparee->execute();
+        if ($stmt->execute()) {
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+
+        throw new \Exception("Échec de la récupération du jeton.");
     }
 }

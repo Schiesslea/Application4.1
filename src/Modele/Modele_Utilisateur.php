@@ -173,4 +173,11 @@ class Modele_Utilisateur
         return null;
     }
 
+    public static function trouverParEmail($login) {
+        $connexionPDO = Singleton_ConnexionPDO::getInstance();
+        $requetePreparee = $connexionPDO->prepare('SELECT * FROM utilisateur WHERE login = :login');
+        $requetePreparee->bindParam(':login', $login, PDO::PARAM_STR);
+        $requetePreparee->execute();
+        return $requetePreparee->fetch(PDO::FETCH_ASSOC);
+    }
 }

@@ -3,6 +3,7 @@
 session_start();
 include_once "vendor/autoload.php";
 
+use App\Modele\Modele_Jeton;
 use App\Utilitaire\Vue;
 use App\Vue\Vue_AfficherMessage;
 use App\Vue\Vue_Connexion_Formulaire_client;
@@ -50,6 +51,24 @@ switch ($typeConnexion) {
         switch ($case) {
             case "RGPD":
                 include "Controleur/Controleur_AccepterRGPD.php";
+                break;
+            case 'token':
+                if ($token) {
+                    // Vérifier si le jeton est valide
+                    try {
+                        $jeton = Modele_Jeton::search($token);
+                        if ($jeton && strtotime($jeton['dateFin']) > time()) {
+                            // Afficher le formulaire pour changement de mot de passe
+                            $Vue = new \App\Vue\Vue_Utilisateur_Changement_MDP($token);
+                        } else {
+                            echo "Jeton invalide ou expiré.";
+                        }
+                    } catch (Exception $e) {
+                        echo "Erreur lors de la vérification du jeton : " . $e->getMessage();
+                    }
+                } else {
+                    echo "Jeton manquant dans la requête.";
+                }
                 break;
             default:
                 include "Controleur/Controleur_visiteur.php";

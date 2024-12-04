@@ -5,53 +5,48 @@ use App\Utilitaire\Vue_Composant;
 class Vue_Connexion_Formulaire_client extends Vue_Composant
 {
     private string $msgErreur;
-    public function __construct(string $msgErreur ="")
+
+    public function __construct(string $msgErreur = "")
     {
-        $this->msgErreur=$msgErreur;
+        $this->msgErreur = $msgErreur;
     }
 
     function donneTexte(): string
     {
-        $str= "
+        $str = "
 <h1>Café : Connexion</h1>
-<div  style='    width: 50%;    display: block;    margin: auto;'>  
-  <form action='index.php' method='post'>
-  
-                <h1>Connexion</h1>
-                
-                <label><b>Compte</b></label>
-                <input type='text' placeholder='identifiant du compte' name='compte' required>
+<div  style='width: 50%; display: block; margin: auto;'>  
+    <form action='index.php' method='post'>
+        <h1>Connexion</h1>
+        
+        <label><b>Compte</b></label>
+        <input type='text' placeholder='identifiant du compte' name='compte' required>
 
-                <label><b>Mot de passe</b></label>
-                <input type='password' placeholder='mot de passe' name='password' required>
-                
-                <button type='submit' id='submit' name='action' value='Se connecter' >
-                    Se connecter
-                </button>                
-                " ;
-        if($this->msgErreur != "")
-        {
-            $str .=  " <label><b>Erreur : $this->msgErreur</b></label>";
+        <label><b>Mot de passe</b></label>
+        <input type='password' placeholder='mot de passe' name='password' required>
+        
+        <button type='submit' id='submit' name='action' value='Se connecter'>
+            Se connecter
+        </button>";
+
+        if ($this->msgErreur != "") {
+            $str .= "<label><b>Erreur : $this->msgErreur</b></label>";
         }
 
-        $str .=  "
-
-</form>
-<form>
-
-<h1>Mot de passe perdu ?</h1>
-
-<button type='submit' id='submit' name='action' value='reinitmdp'> 
-    Réinitialiser le mdp
-</button>
-";
-
         $str .= "
-</form>
-</div>
-    ";
+    </form>
+    <form action='' method='post'>
+        <h1>Mot de passe perdu ?</h1>
 
+        <label for='email'><b>Votre Email</b></label>
+        <input type='email' placeholder='entrez votre email' name='email' required>
 
-        return $str ;
+        <button type='submit' id='submit' name='action' value='reinitmdp'>
+            Réinitialiser le mot de passe
+        </button>
+    </form>
+</div>";
+
+        return $str;
     }
 }

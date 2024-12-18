@@ -54,6 +54,11 @@ switch ($action) {
         session_destroy();
         header("Location: index.php");
         break;
+    case "DesinscrireRGPD":
+        Modele_Utilisateur::Utilisateur_ReinitialiserRGPD($_SESSION["idUtilisateur"]);
+        session_destroy();
+        header("Location: index.php");
+        break;
     default:
         $Vue->addToCorps(new Vue_ConsentementRGPD());
 }

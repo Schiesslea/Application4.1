@@ -4,17 +4,16 @@ use App\Utilitaire\Vue_Composant;
 
 class Vue_Menu_Entreprise_Salarie  extends Vue_Composant
 {
-    private int $quantiteMenu=0;
+    private int $quantiteMenu = 0;
 
     public function __construct(int $quantiteMenu)
     {
-        $this->quantiteMenu=$quantiteMenu;
+        $this->quantiteMenu = $quantiteMenu;
     }
 
     function donneTexte(): string
     {
-
-        $str="
+        $str = "
 <nav id='menu'>
   <ul id='menu-closed'>  
     <li><a href='?case=Gerer_catalogue'>Catalogue</a></li> 
@@ -24,11 +23,11 @@ class Vue_Menu_Entreprise_Salarie  extends Vue_Composant
             $str .= " ($this->quantiteMenu) ";
         }
         $str .= "</a></li>
-    <li><a href='?case=Gerer_CommandeClient'>Mes commandes</a></li> 
+    <li><a href='?case=Gerer_CommandeClient'>Mes commandes</a></li>
+    <li><a href='index.php?action=DesinscrireRGPD'>Refuser RGPD</a></li>
   </ul>
-</nav> ";
+</nav>";
 
         return $str;
     }
-
 }

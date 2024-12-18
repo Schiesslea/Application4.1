@@ -1,5 +1,9 @@
 <?php
 
+use App\Modele\Modele_Entreprise;
+use App\Modele\Modele_Salarie;
+use App\Vue\Vue_Menu_Administration;
+use App\Vue\Vue_Utilisateur_Changement_MDP;
 use PHPMailer\PHPMailer\PHPMailer;
 use App\Modele\Modele_Jeton;
 use App\Modele\Modele_Utilisateur;

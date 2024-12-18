@@ -2,6 +2,7 @@
 
 namespace App\Modele;
 use App\Utilitaire\Singleton_ConnexionPDO;
+use DateTime;
 use PDO;
 
 class Modele_Utilisateur
@@ -180,4 +181,17 @@ class Modele_Utilisateur
         $requetePreparee->execute();
         return $requetePreparee->fetch(PDO::FETCH_ASSOC);
     }
+
+    public static function Utilisateur_ReinitialiserRGPD($idUtilisateur)
+    {
+        $connexionPDO = Singleton_ConnexionPDO::getInstance();
+        $requetePreparee = $connexionPDO->prepare(
+            'UPDATE `utilisateur` 
+         SET aAccepteRGPD = 0, dateAcceptionRGPD = NULL, IP = NULL
+         WHERE idUtilisateur = :idUtilisateur'
+        );
+        $requetePreparee->bindParam(':idUtilisateur', $idUtilisateur, PDO::PARAM_INT);
+        return $requetePreparee->execute();
+    }
+
 }

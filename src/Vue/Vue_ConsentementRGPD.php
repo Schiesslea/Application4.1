@@ -85,6 +85,7 @@ Si vous estimez, après avoir contacté la société ABCD, que vos droits « Inf
             <form method="post" action="index.php?action=RefuserRGPD">
                 <button type="submit" id="submit" name="action" value="Se connecter" >Refuser</button>
             </form>
+
         ';
 
         return $str;
